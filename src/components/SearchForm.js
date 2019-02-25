@@ -1,30 +1,26 @@
 import React from 'react';
 import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-const Form = props => {
+const SearchForm = props => {
   return (
     <Container className="form">
       <Form onSubmit={ props.handleOnSubmit }>
         <FormGroup>
-          <Label for="city" hidden>City</Label>
+          <Label for="city">City: </Label>
           <Input type="text"
             name="city"
-            placeholder="City"
             onChange={ props.handleOnChange }
             value={ props.cityValue } />
-        </FormGroup>
-        <FormGroup>
-          <Label for="country" hidden>Country</Label>
+          <Label for="country"> Country: </Label>
           <Input type="text"
             name="country"
-            placeholder="Country"
             onChange={ props.handleOnChange }
             value={ props.countryValue } />
+          <Button>Get Weather</Button>
         </FormGroup>
-        <Button>Get Weather</Button>
       </Form>
     </Container>
   )
 }
 
-export default Form
+export default SearchForm
