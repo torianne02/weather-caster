@@ -6,7 +6,7 @@ class WeatherSearch extends Component {
     super(props);
     this.state = {
       city: '',
-      country: ''
+      country: '',
     };
     this.handleOnChange = this.handleOnChange.bind(this);
   }
@@ -19,12 +19,9 @@ class WeatherSearch extends Component {
 
   handleOnSubmit = event => {
     event.preventDefault();
-    const searchParams = {
-      city: this.state.city,
-      country: this.state.country
-    }
 
     if (this.validate()) {
+      this.getWeather();
       this.setState({
         city: '',
         country: ''
@@ -38,6 +35,14 @@ class WeatherSearch extends Component {
     } else {
       return true
     }
+  }
+
+  getWeather = async () => {
+    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+    console.log(API_KEY)
+    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}&appid=${API_KEY}`);
+    const response = await api_call.json();
+    console.log(response)
   }
 
   render() {
