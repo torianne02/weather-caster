@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Form from '../components/Form';
+import SearchForm from '../components/SearchForm';
 
 class WeatherSearch extends Component {
   constructor(props) {
@@ -39,4 +39,19 @@ class WeatherSearch extends Component {
       return true
     }
   }
+
+  render() {
+    return (
+      <div className='weather-search'>
+        <SearchForm
+          cityValue={this.state.city}
+          countryValue={this.state.country}
+          handleOnChange={this.handleOnChange}
+          handleOnSubmit={this.handleOnSubmit}
+        />
+      </div>
+    )
+  }
 }
+
+export default WeatherSearch
