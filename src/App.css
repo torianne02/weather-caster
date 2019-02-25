@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+
+.form-group {
+  float: right;
+}
+
+.card-body {
+  padding-top: 50px;
+  float: right;
+}
+
+.card-title {
+  font-size: 30px;
+  padding-bottom: 5px;
+}

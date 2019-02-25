@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchForm from '../components/SearchForm';
+import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class WeatherSearch extends Component {
   constructor(props) {
@@ -8,7 +9,11 @@ class WeatherSearch extends Component {
       city: '',
       country: '',
       temperature: 0,
+      minTemp: 0,
+      maxTemp: 0,
       humidity: 0,
+      wind: 0,
+      submitted: false,
     };
     this.handleOnChange = this.handleOnChange.bind(this);
   }
@@ -22,33 +27,57 @@ class WeatherSearch extends Component {
   handleOnSubmit = event => {
     event.preventDefault();
 
-    if (this.validate()) {
+    if (this.state.city && this.state.country) {
       this.getWeather();
       this.setState({
         city: '',
-        country: ''
+        country: '',
+        temperature: 0,
+        minTemp: 0,
+        maxTemp: 0,
+        humidity: 0,
+        wind: 0,
+        submitted: true,
       })
-    }
-  }
-
-  validate = () => {
-    if (!this.state.city) {
-      return alert('Oops! Please enter a city to search.')
     } else {
-      return true
+      return alert('Oops! Please enter a city AND country to search.')
     }
   }
 
   getWeather = async () => {
     const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+    const city = this.state.city
+    const country = this.state.country
 
-    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}&appid=${API_KEY}&units=imperial`);
+    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=imperial`);
     const response = await api_call.json();
+    console.log(response)
     this.setState({
-      temperature: response.main.temp,
+      city: city,
+      country: country,
+      temperature: Math.round(response.main.temp),
+      minTemp: Math.round(response.main.temp_min),
+      maxTemp: Math.round(response.main.temp_max),
+      wind: Math.round(response.wind.speed),
       humidity: response.main.humidity,
     })
-    console.log(this.state)
+  }
+
+  renderWeather = () => {
+    return (
+      <div className="weather">
+        <Card>
+          <CardBody>
+            <CardTitle>{this.state.city}</CardTitle>
+            <CardText>Current Temperature: {this.state.temperature}&deg;</CardText>
+            <CardText>Wind: {this.state.wind} mph</CardText>
+            <CardText>Min Temp: {this.state.minTemp}&deg;</CardText>
+            <CardText>Max Temp: {this.state.maxTemp}&deg;</CardText>
+            <CardText>Humidity: {this.state.humidity}%</CardText>
+          </CardBody>
+        </Card>
+      </div>
+    )
   }
 
   render() {
@@ -60,6 +89,7 @@ class WeatherSearch extends Component {
           handleOnChange={this.handleOnChange}
           handleOnSubmit={this.handleOnSubmit}
         />
+        { this.state.submitted && this.renderWeather() }
       </div>
     )
   }
