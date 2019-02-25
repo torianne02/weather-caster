@@ -7,6 +7,8 @@ class WeatherSearch extends Component {
     this.state = {
       city: '',
       country: '',
+      temperature: 0,
+      humidity: 0,
     };
     this.handleOnChange = this.handleOnChange.bind(this);
   }
@@ -39,10 +41,14 @@ class WeatherSearch extends Component {
 
   getWeather = async () => {
     const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-    console.log(API_KEY)
-    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}&appid=${API_KEY}`);
+
+    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}&appid=${API_KEY}&units=imperial`);
     const response = await api_call.json();
-    console.log(response)
+    this.setState({
+      temperature: response.main.temp,
+      humidity: response.main.humidity,
+    })
+    console.log(this.state)
   }
 
   render() {
