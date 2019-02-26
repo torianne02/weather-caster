@@ -36,7 +36,34 @@
   float: right;
 }
 
-.card-body {
+.card {
+  text-align: right;
+}
+
+.weather-info {
+  float: right;
+  width: 60%;
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 2px;
+}
+
+.weather-key {
+  color: #660033;
+  border-bottom: solid 2px rgba(255,255,255,0.06);
+  /* padding: 20px 0 20px 0; */
+  font-weight: 400;
+}
+
+.weather-key:last-child {
+  border: 0;
+}
+
+.weather-value {
+  font-weight: 200;
+}
+
+/* .card-body {
   padding-top: 50px;
   float: right;
 }
@@ -44,4 +71,4 @@
 .card-title {
   font-size: 30px;
   padding-bottom: 5px;
-}
+} */
