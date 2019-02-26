@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchForm from '../components/SearchForm';
 import Weather from '../components/Weather';
+import Titles from '../components/Titles';
 
 class WeatherSearch extends Component {
   constructor(props) {
@@ -74,14 +75,19 @@ class WeatherSearch extends Component {
 
   render() {
     return (
-      <div className="weather-search">
-        <SearchForm
-          cityValue={this.state.city}
-          countryValue={this.state.country}
-          handleOnChange={this.handleOnChange}
-          handleOnSubmit={this.handleOnSubmit}
-        />
-        { this.state.submitted && this.renderWeather() }
+      <div className="main">
+        <div className="titles">
+          <Titles />
+        </div>
+        <div className="weather-search">
+          <SearchForm
+            cityValue={this.state.city}
+            countryValue={this.state.country}
+            handleOnChange={this.handleOnChange}
+            handleOnSubmit={this.handleOnSubmit}
+          />
+          { this.state.submitted && this.renderWeather() }
+        </div>
       </div>
     )
   }
