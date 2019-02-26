@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchForm from '../components/SearchForm';
-import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
+import Weather from '../components/Weather';
 
 class WeatherSearch extends Component {
   constructor(props) {
@@ -9,10 +9,9 @@ class WeatherSearch extends Component {
       city: '',
       country: '',
       temperature: 0,
-      minTemp: 0,
-      maxTemp: 0,
       humidity: 0,
       wind: 0,
+      description: '',
       submitted: false,
     };
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -33,10 +32,9 @@ class WeatherSearch extends Component {
         city: '',
         country: '',
         temperature: 0,
-        minTemp: 0,
-        maxTemp: 0,
         humidity: 0,
         wind: 0,
+        description: '',
         submitted: true,
       })
     } else {
@@ -56,33 +54,27 @@ class WeatherSearch extends Component {
       city: city,
       country: country,
       temperature: Math.round(response.main.temp),
-      minTemp: Math.round(response.main.temp_min),
-      maxTemp: Math.round(response.main.temp_max),
       wind: Math.round(response.wind.speed),
       humidity: response.main.humidity,
+      description: response.weather[0].description,
     })
   }
 
   renderWeather = () => {
     return (
-      <div className="weather">
-        <Card>
-          <CardBody>
-            <CardTitle>{this.state.city}</CardTitle>
-            <CardText>Current Temperature: {this.state.temperature}&deg;</CardText>
-            <CardText>Wind: {this.state.wind} mph</CardText>
-            <CardText>Min Temp: {this.state.minTemp}&deg;</CardText>
-            <CardText>Max Temp: {this.state.maxTemp}&deg;</CardText>
-            <CardText>Humidity: {this.state.humidity}%</CardText>
-          </CardBody>
-        </Card>
-      </div>
+      <Weather
+        temperature={this.state.temperature}
+        city={this.state.city}
+        wind={this.state.wind}
+        humidity={this.state.humidity}
+        description={this.state.description}
+      />
     )
   }
 
   render() {
     return (
-      <div className='weather-search'>
+      <div className="weather-search">
         <SearchForm
           cityValue={this.state.city}
           countryValue={this.state.country}
