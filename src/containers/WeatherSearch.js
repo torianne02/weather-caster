@@ -61,18 +61,6 @@ class WeatherSearch extends Component {
     })
   }
 
-  renderWeather = () => {
-    return (
-      <Weather
-        temperature={this.state.temperature}
-        city={this.state.city}
-        wind={this.state.wind}
-        humidity={this.state.humidity}
-        description={this.state.description}
-      />
-    )
-  }
-
   render() {
     return (
       <div className="main">
@@ -86,7 +74,13 @@ class WeatherSearch extends Component {
             handleOnChange={this.handleOnChange}
             handleOnSubmit={this.handleOnSubmit}
           />
-          { this.state.submitted && this.renderWeather() }
+          <Weather
+            temperature={this.state.temperature}
+            city={this.state.city}
+            wind={this.state.wind}
+            humidity={this.state.humidity}
+            description={this.state.description}
+          />
         </div>
       </div>
     )
